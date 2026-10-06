@@ -1,0 +1,21 @@
+CompileFlags:
+  Add:
+    - -IC:/Users/mason/Code/parrallell-batcher/include
+    - -Iinclude
+    - -Wall
+    - -Wextra
+
+---
+If:
+  PathMatch: .*\.h
+CompileFlags:
+  Add:
+    - -xc
+    - -std=c17
+
+---
+If:
+  PathMatch: .*\.c
+CompileFlags:
+  Add:
+    - -std=c17
