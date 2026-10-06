@@ -1,5 +1,7 @@
-﻿{
-    "directory":  "C:/Users/mason/Code/parrallell-batcher",
-    "file":  "src/main.c",
-    "command":  "gcc -Iinclude -MMD -MP -Wall -Wextra -Wpedantic -std=c17 -O3 -DNDEBUG -c src/main.c"
-}
+[
+    {
+        "directory":  "C:/Users/mason/Code/BasicApkFormat",
+        "file":  "src/main.c",
+        "command":  "gcc -Iinclude -MMD -MP -Wall -Wextra -Wpedantic -std=c17 -O3 -DNDEBUG -c src/main.c"
+    }
+]

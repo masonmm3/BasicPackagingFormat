@@ -31,7 +31,7 @@ else
     RUN_PREFIX = ./$1
 endif
 
-TARGET    := $(BIN_DIR)/parrallell_batcher$(TARGET_EXT)
+TARGET    := $(BIN_DIR)/BasicAPK$(TARGET_EXT)
 
 # Recursive wildcard pure Make function
 rwildcard  = $(foreach d,$(wildcard $(1:=/*)),$(call rwildcard,$d,$2) $(filter $(subst *,%,$2),$d))
@@ -52,14 +52,15 @@ compile_commands.json: $(SRCS)
 	@powershell -NoProfile -Command "\
 		$$dir = (Get-Location).Path.Replace('\', '/'); \
 		$$files = -split '$(SRCS)'; \
-		$$list = foreach ($$f in $$files) { \
+		$$list = @(foreach ($$f in $$files) { \
 			[PSCustomObject]@{ \
 				directory = $$dir; \
 				file = $$f; \
 				command = 'gcc $(CPPFLAGS) $(CFLAGS) -c ' + $$f \
 			} \
-		}; \
-		($$list | ConvertTo-Json -Depth 3) | Set-Content -Encoding utf8 compile_commands.json"
+		}); \
+		$$json = ConvertTo-Json -InputObject @($$list) -Depth 3; \
+		[IO.File]::WriteAllText('compile_commands.json', $$json, [Text.UTF8Encoding]::new($$false))"
 
 $(TARGET): $(OBJS) | $(BIN_DIR)
 	@echo  [LD] $@
