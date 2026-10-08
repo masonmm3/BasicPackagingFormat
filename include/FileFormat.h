@@ -8,7 +8,7 @@ typedef struct _bareHeader {
 } BareHeader;               // Total = 16 contiguous bytes
 
 typedef struct _packageEntry {
-    uint32_t id;            // 1 = DLL, 2 = Model
+    uint32_t id;            //
     uint64_t file_offset;   // Byte position where raw data starts
     uint64_t size;          // Byte count of the raw data
 } PackageEntry;

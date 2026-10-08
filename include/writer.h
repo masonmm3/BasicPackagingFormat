@@ -14,32 +14,26 @@ typedef struct {
 } TextEntry;
 
 /* Returns 0 on success, 1 on failure. */
-int write_package(FILE* fp,
-                  const TextEntry *entries,
-                  uint32_t count)
+int write_package(FILE* fp, const TextEntry *entries, uint32_t count)
 {
     if (fp == NULL || (count != 0 && entries == NULL)) {
         return 1;
     }
 
-    uint64_t payload_start =
-        sizeof(BareHeader) +
-        (uint64_t)count * sizeof(PackageEntry);
+    uint64_t payload_start = sizeof(BareHeader) + (uint64_t)count * sizeof(PackageEntry);
 
     /* Validate inputs and total size before opening the file. */
     uint64_t total_size = payload_start;
 
+    //verify each packets data
     for (uint32_t i = 0; i < count; ++i) {
         if (entries[i].text == NULL) {
             return 1;
         }
-
         uint64_t size = (uint64_t)strlen(entries[i].text);
-
         if (size > UINT64_MAX - total_size) {
             return 1;
         }
-
         total_size += size;
     }
 
